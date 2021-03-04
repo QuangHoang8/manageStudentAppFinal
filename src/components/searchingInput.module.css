@@ -1,0 +1,23 @@
+.search_area {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search_area input {
+  flex: 0 0 80%;
+  height: 50%;
+  border: 1px solid grey;
+  border-right: none;
+}
+
+.search_button {
+  flex: 0 0 20%;
+  background-color: #4da6ff;
+  color: white;
+  height: 50% !important;
+  padding: 3px;
+  cursor: pointer;
+}
