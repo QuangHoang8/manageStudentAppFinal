@@ -99,14 +99,12 @@
   width: 90%;
   margin: auto;
 }
-.button_group .link {
-  width: 30%;
-  margin-left: 3%;
-}
+
 .add_butt,
 .cancel_butt {
-  width: 100%;
+  width: 20%;
   height: 5vh;
+  margin-left: 3%;
   color: white;
   cursor: pointer;
   border-radius: 2px;

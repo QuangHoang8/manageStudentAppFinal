@@ -92,61 +92,12 @@ export const editingGender = (gender) => ({
   },
 });
 
-export const saveEditStudent = () => ({
+export const saveEditStudent = (modifiedStudent) => ({
   type: actionTypes.MODIFY_STUDENT.SAVE_EDIT,
-  payload: {},
+  payload: { modifiedStudent },
 });
 
-export const addingId = (id) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_ID,
-  payload: {
-    id,
-  },
-});
-
-export const addingImg = (urlImg) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_IMG,
-  payload: {
-    urlImg,
-  },
-});
-
-export const addingName = (name) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_NAME,
-  payload: {
-    name,
-  },
-});
-
-export const addingPhoneNumber = (phoneNumber) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_PHONENUMBER,
-  payload: {
-    phoneNumber,
-  },
-});
-
-export const addingDayAdmission = (dayAdmission) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_DAYADMISSION,
-  payload: {
-    dayAdmission,
-  },
-});
-
-export const addingBirthday = (birthday) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_BIRTHDAY,
-  payload: {
-    birthday,
-  },
-});
-
-export const addingGender = (gender) => ({
-  type: actionTypes.ADD_STUDENT.ADDING_GENDER,
-  payload: {
-    gender,
-  },
-});
-
-export const saveAddStudent = () => ({
+export const saveStudent = (newStudent) => ({
   type: actionTypes.ADD_STUDENT.SAVE_ADD,
-  payload: {},
+  payload: { newStudent },
 });

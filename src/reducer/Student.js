@@ -1,5 +1,6 @@
 import { actionTypes } from "../action/actionTypes";
 import { studentData } from "../studentData";
+import { v4 as uuidv4 } from "uuid";
 
 const setStudentList = (studentDatabase) => {
   localStorage.setItem("studentList", JSON.stringify(studentDatabase));
@@ -96,73 +97,21 @@ export const students = (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_STUDENT.SAVE_EDIT: {
-      return handleSaveEditStudent(state);
+      const modifiedStudent = action.payload.modifiedStudent;
+      console.log(modifiedStudent);
+      const newStudentList = state.studentList.map((s) =>
+        s.id === modifiedStudent.id ? modifiedStudent : s
+      );
+      console.log(newStudentList);
+      return { ...state, studentList: setStudentList(newStudentList) };
     }
-    case actionTypes.ADD_STUDENT.ADDING_ID: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          id: action.payload.id,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_IMG: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          img: action.payload.urlImg,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_NAME: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          name: action.payload.name,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_PHONENUMBER: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          phoneNumber: action.payload.phoneNumber,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_BIRTHDAY: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          birthday: action.payload.birthday,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_DAYADMISSION: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          dayAdmission: action.payload.dayAdmission,
-        },
-      };
-    }
-    case actionTypes.ADD_STUDENT.ADDING_GENDER: {
-      return {
-        ...state,
-        newStudent: {
-          ...state.newStudent,
-          gender: action.payload.gender,
-        },
-      };
-    }
+
     case actionTypes.ADD_STUDENT.SAVE_ADD: {
-      return handleSaveAddStudent(state);
+      const newStudentList = [{ ...action.payload.newStudent, id: uuidv4() }];
+
+      const studentLists = [...state.studentList, ...newStudentList];
+
+      return { ...state, studentList: setStudentList(studentLists) };
     }
 
     default:
@@ -204,61 +153,63 @@ const handleSearchStudent = (currentState) => {
     };
   }
 };
-const handleSaveEditStudent = (currentState) => {
-  const studentLists = JSON.parse(localStorage.getItem("studentList")).map(
-    (student) => {
-      if (student.id !== currentState.studentisModified.id) {
-        return student;
-      }
-      const studentModify = {
-        ...student,
-        name: currentState.studentisModified.name,
-        phoneNumber: currentState.studentisModified.phoneNumber,
-        birthday: currentState.studentisModified.birthday,
-        gender: currentState.studentisModified.gender,
-        dayAdmission: currentState.studentisModified.dayAdmission,
-        img: currentState.studentisModified.img,
-      };
-      return studentModify;
-    }
-  );
-  let studentSearchLists = [];
-  if (currentState.studentSearchList !== "") {
-    const studentSearchListsModified = currentState.studentSearchList.map(
-      (student) => {
-        if (student.id !== currentState.studentisModified.id) {
-          return student;
-        }
-        const studentModify = {
-          ...student,
-          name: currentState.studentisModified.name,
-          phoneNumber: currentState.studentisModified.phoneNumber,
-          birthday: currentState.studentisModified.birthday,
-          gender: currentState.studentisModified.gender,
-          dayAdmission: currentState.studentisModified.dayAdmission,
-          img: currentState.studentisModified.img,
-        };
-        return studentModify;
-      }
-    );
-    studentSearchLists = [...studentSearchListsModified];
-  }
-  console.log(studentSearchLists);
-  return {
-    ...currentState,
-    studentList: setStudentList(studentLists),
-    studentSearchList: studentSearchLists,
-  };
-};
-const handleSaveAddStudent = (currentState) => {
-  const newStudent = [
-    {
-      ...currentState.newStudent,
-      id: Math.floor(Math.random() * 15632728191909010),
-    },
-  ];
+// const handleSaveEditStudent = (currentState) => {
+//   const studentLists = JSON.parse(localStorage.getItem("studentList")).map(
+//     (student) => {
+//       if (student.id !== currentState.studentisModified.id) {
+//         return student;
+//       }
+//       console.log(currentState.studentisModified.name);
+//       const studentModify = {
+//         ...student,
+//         name: currentState.studentisModified.name,
+//         phoneNumber: currentState.studentisModified.phoneNumber,
+//         birthday: currentState.studentisModified.birthday,
+//         gender: currentState.studentisModified.gender,
+//         dayAdmission: currentState.studentisModified.dayAdmission,
+//         img: currentState.studentisModified.img,
+//       };
+//       return studentModify;
+//     }
+//   );
+//   console.log(studentLists);
+//   let studentSearchLists = [];
+//   if (currentState.studentSearchList !== "") {
+//     const studentSearchListsModified = currentState.studentSearchList.map(
+//       (student) => {
+//         if (student.id !== currentState.studentisModified.id) {
+//           return student;
+//         }
+//         const studentModify = {
+//           ...student,
+//           name: currentState.studentisModified.name,
+//           phoneNumber: currentState.studentisModified.phoneNumber,
+//           birthday: currentState.studentisModified.birthday,
+//           gender: currentState.studentisModified.gender,
+//           dayAdmission: currentState.studentisModified.dayAdmission,
+//           img: currentState.studentisModified.img,
+//         };
+//         return studentModify;
+//       }
+//     );
+//     studentSearchLists = [...studentSearchListsModified];
+//   }
+//   console.log(studentSearchLists);
+//   return {
+//     ...currentState,
+//     studentList: setStudentList(studentLists),
+//     studentSearchList: studentSearchLists,
+//   };
+// };
+// const handleSaveAddStudent = (currentState) => {
+//   const newStudent = [
+//     {
+//       ...currentState.newStudent,
+//       id: uuidv4(),
+//     },
+//   ];
 
-  const studentLists = [...currentState.studentList, ...newStudent];
+//   const studentLists = [...currentState.studentList, ...newStudent];
 
-  return { ...currentState, studentList: setStudentList(studentLists) };
-};
+//   return { ...currentState, studentList: setStudentList(studentLists) };
+// };

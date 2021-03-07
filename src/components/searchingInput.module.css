@@ -4,6 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .search_area input {
@@ -11,13 +13,14 @@
   height: 50%;
   border: 1px solid grey;
   border-right: none;
+  height: 40px;
 }
 
 .search_button {
   flex: 0 0 20%;
   background-color: #4da6ff;
   color: white;
-  height: 50% !important;
+  height: 40px !important;
   padding: 3px;
   cursor: pointer;
 }
